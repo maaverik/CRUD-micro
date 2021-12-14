@@ -2,3 +2,4 @@
 .DS_Store
 admin/db.sqlite3
 *.dbdata
+.vscode/settings.json
