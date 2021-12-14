@@ -1,0 +1,3 @@
+*__pycache__/
+.DS_Store
+admin/db.sqlite3
