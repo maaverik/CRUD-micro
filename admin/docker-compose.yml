@@ -11,7 +11,6 @@ services:
       - .:/app
     depends_on: 
       - db
-    restart: always 
   
   queue:
     build:
@@ -20,6 +19,7 @@ services:
     command: "python consumer.py"
     depends_on: 
       - db
+    restart: always 
 
   db:
     image: mysql
