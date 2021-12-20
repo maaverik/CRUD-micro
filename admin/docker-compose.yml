@@ -11,6 +11,7 @@ services:
       - .:/app
     depends_on: 
       - db
+    restart: always 
   
   queue:
     build:
