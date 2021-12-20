@@ -1,5 +1,3 @@
-# amqps://zqcciwfx:Lhx-gBIsDPY7eNfYbBKV5UBOhNOx1mu4@puffin.rmq2.cloudamqp.com/zqcciwfx
-
 import pika  # to send messages
 
 params = pika.URLParameters(
@@ -16,7 +14,7 @@ def callback(ch, method, properties, body):
     print(body)
 
 
-channel.basic_consume(queue="admin", on_message_callback=callback)
+channel.basic_consume(queue="admin", on_message_callback=callback, auto_ack=True)
 
 print("Started consuming")
 
