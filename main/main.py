@@ -10,6 +10,7 @@ from producer import publish
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@db/main"
+CORS(app)
 
 db = SQLAlchemy(app)
 
@@ -19,12 +20,14 @@ class Product(db.Model):
     id: int
     title: str
     image: str
+    likes: int
 
     # autoincrement False because product will be created in admin app and sent here
     # from RabbitMQ, so id will be different
     id = db.Column(db.Integer, primary_key=True, autoincrement=False)
     title = db.Column(db.String(200))
-    image = db.Column(db.String(200))
+    image = db.Column(db.String(400))
+    likes = db.Column(db.Integer, default=0)
 
 
 @dataclass
@@ -50,7 +53,8 @@ def like(id):
         db.session.add(productUser)
         db.session.commit()
         publish("product_liked", id)
-    except:
+    except Exception as e:
+        print(e)
         abort(400, "You already liked this product")
 
     return {"message": "success"}

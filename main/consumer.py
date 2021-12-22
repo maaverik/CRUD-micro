@@ -25,6 +25,7 @@ def callback(ch, method, properties, body):
                 id=data["id"],
                 title=data["title"],
                 image=data["image"],
+                likes=data["likes"],
             )
             db.session.add(product)
             db.session.commit()
