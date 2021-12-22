@@ -28,6 +28,7 @@ const ProductsCreate = () => {
 
   return (
     <Wrapper>
+      <h3>Add new products</h3>
       <form onSubmit={submit}>
         <div className="form-group">
           <label>Title</label>

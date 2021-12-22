@@ -5,19 +5,19 @@ import React, {
   useState,
 } from "react";
 import Wrapper from "./Wrapper";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { Product } from "../interfaces/product";
 
 const ProductsEdit = (props: PropsWithRef<any>) => {
+  const params = useParams();
+  const id = params.id;
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(
-        `http://localhost:8000/api/products/${props.match.params.id}`
-      );
+      const response = await fetch(`http://localhost:8000/api/products/${id}`);
 
       const product: Product = await response.json();
 
@@ -29,7 +29,7 @@ const ProductsEdit = (props: PropsWithRef<any>) => {
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    await fetch(`http://localhost:8000/api/products/${props.match.params.id}`, {
+    await fetch(`http://localhost:8000/api/products/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -47,6 +47,7 @@ const ProductsEdit = (props: PropsWithRef<any>) => {
 
   return (
     <Wrapper>
+      <h3>Edit products</h3>
       <form onSubmit={submit}>
         <div className="form-group">
           <label>Title</label>
