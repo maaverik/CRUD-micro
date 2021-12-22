@@ -54,8 +54,7 @@ def like(id):
         db.session.commit()
         publish("product_liked", id)
     except Exception as e:
-        print(e)
-        abort(400, "You already liked this product")
+        abort(400, f"Liking failed due to {e}")
 
     return {"message": "success"}
 

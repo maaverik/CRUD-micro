@@ -10,9 +10,13 @@ django.setup()
 
 from products.models import Product
 
-params = pika.URLParameters(
-    "amqps://zqcciwfx:Lhx-gBIsDPY7eNfYbBKV5UBOhNOx1mu4@puffin.rmq2.cloudamqp.com/zqcciwfx"
-)
+if "RABBITMQ_URL" not in os.environ:
+    # Put RabbitMQ URLParameters in an env variable called RABBITMQ_URL
+    raise ValueError("Please set RABBITMQ_URL environment variable")
+
+rabbitmq_url = os.environ["RABBITMQ_URL"]
+
+params = pika.URLParameters(rabbitmq_url)
 connection = pika.BlockingConnection(params)  # connection with RabbitMQ
 channel = connection.channel()
 

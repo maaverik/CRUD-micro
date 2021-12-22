@@ -5,6 +5,8 @@ services:
       context: . 
       dockerfile: Dockerfile
     command: "python main.py"
+    environment:
+      - RABBITMQ_URL
     ports: 
       - 8001:5000
     volumes: 
@@ -17,6 +19,8 @@ services:
       context: . 
       dockerfile: Dockerfile
     command: "python consumer.py"
+    environment:
+      - RABBITMQ_URL
     depends_on: 
       - db
     restart: always 
